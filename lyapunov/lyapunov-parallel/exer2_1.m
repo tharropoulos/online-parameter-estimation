@@ -3,12 +3,12 @@ clear;
 close all;
 
 
-mkdir(fullfile('figures', 'exer2', 'par', 'xxhat', 'svg'));
-mkdir(fullfile('figures', 'exer2', 'par', 'xxhat', 'eps'));
-mkdir(fullfile('figures', 'exer2', 'par', 'ab', 'svg'));
-mkdir(fullfile('figures', 'exer2', 'par', 'ab', 'eps'));
-mkdir(fullfile('figures', 'exer2', 'par', 'xdif', 'svg'));
-mkdir(fullfile('figures', 'exer2', 'par', 'xdif', 'eps'));
+mkdir(fullfile('figures',  'par', 'xxhat', 'svg'));
+mkdir(fullfile('figures',  'par', 'xxhat', 'eps'));
+mkdir(fullfile('figures',  'par', 'ab', 'svg'));
+mkdir(fullfile('figures',  'par', 'ab', 'eps'));
+mkdir(fullfile('figures',  'par', 'xdif', 'svg'));
+mkdir(fullfile('figures',  'par', 'xdif', 'eps'));
 
 tspan = 0:0.001:30;
 
@@ -83,13 +83,13 @@ for i = 1:length(gamma1_options)
         xlabel('$t$', 'interpreter', 'latex');
         
     end
-    saveas(fig1, fullfile('figures', 'exer2', 'par', 'xxhat', 'svg', sprintf('xxhat_g1(%.1f).svg', gamma1_options(i))));
-    saveas(fig1, fullfile('figures', 'exer2', 'par', 'xxhat', 'eps', sprintf('xxhat_g1(%.1f).eps', gamma1_options(i))));
+    saveas(fig1, fullfile('figures',  'par', 'xxhat', 'svg', sprintf('xxhat_g1(%.1f).svg', gamma1_options(i))));
+    saveas(fig1, fullfile('figures',  'par', 'xxhat', 'eps', sprintf('xxhat_g1(%.1f).eps', gamma1_options(i))));
     
-    saveas(fig2, fullfile('figures', 'exer2', 'par', 'ab', 'svg', sprintf('ab_g1(%.1f).svg', gamma1_options(i))));
-    saveas(fig2, fullfile('figures', 'exer2', 'par', 'ab', 'eps', sprintf('ab_g1(%.1f).eps', gamma1_options(i))));
+    saveas(fig2, fullfile('figures',  'par', 'ab', 'svg', sprintf('ab_g1(%.1f).svg', gamma1_options(i))));
+    saveas(fig2, fullfile('figures',  'par', 'ab', 'eps', sprintf('ab_g1(%.1f).eps', gamma1_options(i))));
     
-    saveas(fig3, fullfile('figures', 'exer2', 'par', 'xdif', 'svg', sprintf('xdif_g1(%.1f).svg', gamma1_options(i))));
-    saveas(fig3, fullfile('figures', 'exer2', 'par', 'xdif', 'eps', sprintf('xdif_g1(%.1f).eps', gamma1_options(i))));
+    saveas(fig3, fullfile('figures',  'par', 'xdif', 'svg', sprintf('xdif_g1(%.1f).svg', gamma1_options(i))));
+    saveas(fig3, fullfile('figures',  'par', 'xdif', 'eps', sprintf('xdif_g1(%.1f).eps', gamma1_options(i))));
     
 end
