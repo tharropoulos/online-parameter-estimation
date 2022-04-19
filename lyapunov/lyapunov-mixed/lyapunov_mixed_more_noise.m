@@ -2,6 +2,7 @@ clc;
 clear;
 close all;
 
+disp('Mixed More Noise...');
 
 mkdir(fullfile('figures','more-noise', 'xxhat', 'svg'));
 mkdir(fullfile('figures','more-noise', 'xxhat', 'eps'));

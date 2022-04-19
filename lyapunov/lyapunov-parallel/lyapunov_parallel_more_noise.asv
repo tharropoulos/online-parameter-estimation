@@ -2,6 +2,7 @@ clc;
 clear;
 close all;
 
+disp('Parallel More Noise...');
 
 mkdir(fullfile('figures','more-noise', 'xxhat', 'svg'));
 mkdir(fullfile('figures','more-noise', 'xxhat', 'eps'));
@@ -87,7 +88,7 @@ for i = 1:length(foptions)
         aline = yline(a,'--', '$\alpha$', 'interpreter', 'latex');
         aline.LabelHorizontalAlignment = 'left';
        
-        title(sprintf('Approximated and actual output using the Lyapunov Parallel  Method for $n(t) = %.1fsin(2\\pi %d t)$', n0options(j), foptions(i)), 'Interpreter', 'latex');
+        title(sprintf('Approximated and actual parameters using the Lyapunov Parallel Method for $n(t) = %.1fsin(2\\pi %d t)$', n0options(j), foptions(i)), 'Interpreter', 'latex');
 %         ax = gca;
 %         ax.TitleFontSizeMultiplier = 0.9;
         ylabel('$a$, $b$', 'interpreter', 'latex');
@@ -104,9 +105,7 @@ for i = 1:length(foptions)
         hold on;
         yline(0, '--');
 %         ylim([-0.5, 4]);
-       title(sprintf('Approximated and actual output using the Lyapunov Parallel  Method for $n(t) = %.1fsin(2\\pi %d t)$', n0options(j), foptions(i)), 'Interpreter', 'latex');
-%         ax = gca;
-%         ax.TitleFontSizeMultiplier = 0.89;
+       title(sprintf('Difference between actual and approximated output using the Lyapunov Parallel Method for  $n(t) = %.1fsin(2\\pi %d t)$', n0options(j), foptions(i)), 'Interpreter', 'latex');
         ylabel('$x - \hat{x}$', 'interpreter', 'latex');
         xlabel('$t$', 'interpreter', 'latex');
         
@@ -129,20 +128,20 @@ end
 [max_amse, max_indexa] = max([datas.amse]);
 [max_bmse, max_indexb] = max([datas.bmse]);
 [max_general_mse, max_index_general] = max([datas.general_mse]);
-X =  ['f = ', num2str(datas(min_indexx).f), ', n0 =  ', num2str(datas(min_indexx).n0), ' for minimum square error for output']; 
+X =  ['f = ', num2str(datas(min_indexx).f), ', n0 =  ', num2str(datas(min_indexx).n0), ' for minimum square error for output ',  num2str(min_xmse)]; 
 disp(X);
-A =  ['f =  ', num2str(datas(min_indexa).f), ', n0 =  ', num2str(datas(min_indexa).n0), ' for minimum square error for a']; 
+A =  ['f =  ', num2str(datas(min_indexa).f), ', n0 =  ', num2str(datas(min_indexa).n0), ' for minimum square error for a ',  num2str(min_amse)]; 
 disp(A);
-B =  ['f = ', num2str(datas(min_indexb).f), ', n0 =  ', num2str(datas(min_indexb).n0), ' for minimum square error for b']; 
+B =  ['f = ', num2str(datas(min_indexb).f), ', n0 =  ', num2str(datas(min_indexb).n0), ' for minimum square error for b ', num2str(min_bmse)]; 
 disp(B);
-G =  ['f = ', num2str(datas(min_index_general).f), ', n0 =  ', num2str(datas(min_index_general).n0), ' for general minimum square error']; 
+G =  ['f = ', num2str(datas(min_index_general).f), ', n0 =  ', num2str(datas(min_index_general).n0), ' for general minimum square error ',  num2str(min_general_mse)]; 
 disp(G);
-
-X2 =  ['f = ', num2str(datas(max_indexx).f), ', n0 =  ', num2str(datas(max_indexx).n0), ' for maximum square error for output']; 
-disp(X2);
-A2 =  ['f =  ', num2str(datas(max_indexa).f), ', n0 =  ', num2str(datas(max_indexa).n0), ' for minimum square error for a']; 
-disp(A2);
-B2 =  ['f = ', num2str(datas(max_indexb).f), ', n0 =  ', num2str(datas(max_indexb).n0), ' for minimum square error for b']; 
-disp(B2);
-G2 =  ['f = ', num2str(datas(max_index_general).f), ', n0 =  ', num2str(datas(max_index_general).n0), ' for general minimum square error']; 
-disp(G2);
+fprintf('\n');
+Xmax =  ['f = ', num2str(datas(max_indexx).f), ', n0 =  ', num2str(datas(max_indexx).n0), ' for maximum square error for output ',  num2str(max_xmse)]; 
+disp(Xmax);
+Amax =  ['f =  ', num2str(datas(max_indexa).f), ', n0 =  ', num2str(datas(max_indexa).n0), ' for maximum square error for a ',  num2str(max_amse)]; 
+disp(Amax);
+Bmax =  ['f = ', num2str(datas(max_indexb).f), ', n0 =  ', num2str(datas(max_indexb).n0), ' for maximum square error for b ',  num2str(max_bmse)]; 
+disp(Bmax);
+Gmax =  ['f = ', num2str(datas(max_index_general).f), ', n0 =  ', num2str(datas(max_index_general).n0), ' for general maximum square error ', num2str(max_general_mse)]; 
+disp(Gmax);

@@ -135,7 +135,7 @@ disp(Amin);
 Bmin = ['gamma1 = ', num2str(datas(min_indexb).gamma1), ', gamma 2 = ', num2str(datas(min_indexb).gamma2),' for minimum square error for b ', num2str(min_bmse)];
 disp(Bmin);
 
-Gmin = ['gamma1 = ', num2str(datas(min_index_general).gamma1), ', gamma 2 = ', num2str(datas(min_index_general).gamma2), ' for minimum square error for general ', num2str(min_general_mse)];
+Gmin = ['gamma1 = ', num2str(datas(min_index_general).gamma1), ', gamma 2 = ', num2str(datas(min_index_general).gamma2), ' for minimum square error for a ', num2str(min_general_mse)];
 disp(Gmin);
 
 fprintf('\n');
