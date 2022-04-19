@@ -3,12 +3,12 @@ clear;
 close all;
 
 
-mkdir(fullfile('figures',  'par', 'xxhat', 'svg'));
-mkdir(fullfile('figures',  'par', 'xxhat', 'eps'));
-mkdir(fullfile('figures',  'par', 'ab', 'svg'));
-mkdir(fullfile('figures',  'par', 'ab', 'eps'));
-mkdir(fullfile('figures',  'par', 'xdif', 'svg'));
-mkdir(fullfile('figures',  'par', 'xdif', 'eps'));
+mkdir(fullfile('figures','no-noise', 'xxhat', 'svg'));
+mkdir(fullfile('figures','no-noise', 'xxhat', 'eps'));
+mkdir(fullfile('figures','no-noise', 'ab', 'svg'));
+mkdir(fullfile('figures','no-noise', 'ab', 'eps'));
+mkdir(fullfile('figures','no-noise', 'xdif', 'svg'));
+mkdir(fullfile('figures','no-noise', 'xdif', 'eps'));
 
 tspan = 0:0.001:30;
 
@@ -18,18 +18,28 @@ gamma2_options = [0.1, 0.4, 0.7, 2, 5, 8, 24, 40];
 
 initialconditions = zeros(1,4);
 
+gamma1 = 30;
+gamma2 = 40;
+
 
 n_0 = 1.5;
 f = 20;
 
 u = @(t) 3 * cos(2*t);
-n = @(t) n_0 * sin(2*pi*f*t);
+n = @(t)  0; %n_0 * sin(2*pi*f*t);
 
 
 
 
 a = 1.5;
 b = 2;
+mses = [];
+optimal_gammas = [];
+
+
+
+
+ctr = 1;
 
 for i = 1:length(gamma1_options)
     for j = 1:length(gamma2_options)
@@ -37,6 +47,23 @@ for i = 1:length(gamma1_options)
         fig1.WindowState = 'maximized';
       
         [data, odex] = lyapunov_par(tspan, initialconditions, a, b, gamma1_options(i), gamma2_options(j), u, n);
+        
+        
+        datas(ctr).xmse = data.xmse;
+        datas(ctr).amse = data.amse;
+        datas(ctr).bmse = data.bmse;
+        datas(ctr).general_mse = data.general_mse;
+        datas(ctr).gamma1 = gamma1_options(i);
+        datas(ctr).gamma2 = gamma2_options(j);
+        datas(ctr).x = data.x;
+        datas(ctr).x_hat = data.x_hat;
+        datas(ctr).a_hat = data.a_hat;
+        datas(ctr).b_hat = data.b_hat;
+              
+        
+        ctr = ctr+1;
+  
+        
         subplot(length(gamma1_options)/2, 2,j);
         plot(tspan, data.x, '-b');
         hold on;
@@ -83,13 +110,26 @@ for i = 1:length(gamma1_options)
         xlabel('$t$', 'interpreter', 'latex');
         
     end
-    saveas(fig1, fullfile('figures',  'par', 'xxhat', 'svg', sprintf('xxhat_g1(%.1f).svg', gamma1_options(i))));
-    saveas(fig1, fullfile('figures',  'par', 'xxhat', 'eps', sprintf('xxhat_g1(%.1f).eps', gamma1_options(i))));
+    saveas(fig1, fullfile('figures',  'no-noise', 'xxhat', 'svg', sprintf('xxhat_g1(%.1f).svg', gamma1_options(i))));
+    saveas(fig1, fullfile('figures',  'no-noise', 'xxhat', 'eps', sprintf('xxhat_g1(%.1f).eps', gamma1_options(i))));
     
-    saveas(fig2, fullfile('figures',  'par', 'ab', 'svg', sprintf('ab_g1(%.1f).svg', gamma1_options(i))));
-    saveas(fig2, fullfile('figures',  'par', 'ab', 'eps', sprintf('ab_g1(%.1f).eps', gamma1_options(i))));
+    saveas(fig2, fullfile('figures',  'no-noise', 'ab', 'svg', sprintf('ab_g1(%.1f).svg', gamma1_options(i))));
+    saveas(fig2, fullfile('figures',  'no-noise', 'ab', 'eps', sprintf('ab_g1(%.1f).eps', gamma1_options(i))));
     
-    saveas(fig3, fullfile('figures',  'par', 'xdif', 'svg', sprintf('xdif_g1(%.1f).svg', gamma1_options(i))));
-    saveas(fig3, fullfile('figures',  'par', 'xdif', 'eps', sprintf('xdif_g1(%.1f).eps', gamma1_options(i))));
+    saveas(fig3, fullfile('figures',  'no-noise', 'xdif', 'svg', sprintf('xdif_g1(%.1f).svg', gamma1_options(i))));
+    saveas(fig3, fullfile('figures',  'no-noise', 'xdif', 'eps', sprintf('xdif_g1(%.1f).eps', gamma1_options(i))));
     
 end
+[min_xmse, indexx] = min([datas.xmse]);
+[min_amse, indexa] = min([datas.amse]);
+[min_bmse, indexb] = min([datas.bmse]);
+[min_general_mse, index_general] = min([datas.general_mse]);
+X =  ['gamma1 = ', num2str(datas(indexx).gamma1), ', gamma2 =  ', num2str(datas(indexx).gamma2), ' for minimum square error for output']; 
+disp(X);
+A =  ['gamma1 =  ', num2str(datas(indexa).gamma1), ', gamma2 =  ', num2str(datas(indexa).gamma2), ' for minimum square error for a']; 
+disp(A);
+B =  ['gamma1 = ', num2str(datas(indexb).gamma1), ', gamma2 =  ', num2str(datas(indexb).gamma2), ' for minimum square error for b']; 
+disp(B);
+G =  ['gamma1 = ', num2str(datas(index_general).gamma1), ', gamma2 =  ', num2str(datas(index_general).gamma2), ' for general minimum square error']; 
+disp(G);
+        
