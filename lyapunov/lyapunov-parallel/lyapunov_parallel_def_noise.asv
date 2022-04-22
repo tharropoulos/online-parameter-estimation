@@ -107,7 +107,6 @@ for i = 1:length(gamma1_options)
         xlabel('$t$', 'interpreter', 'latex');
         
     end
-        %% Save Plots %%
     saveas(fig1, fullfile('figures',  'def-noise', 'xxhat', 'svg', sprintf('xxhat_g1(%.1f).svg', gamma1_options(i))));
     saveas(fig1, fullfile('figures',  'def-noise', 'xxhat', 'eps', sprintf('xxhat_g1(%.1f).eps', gamma1_options(i))));
     
@@ -118,7 +117,7 @@ for i = 1:length(gamma1_options)
     saveas(fig3, fullfile('figures',  'def-noise', 'xdif', 'eps', sprintf('xdif_g1(%.1f).eps', gamma1_options(i))));
     
 end
- %% minimum and maximum mse%%
+    %% Save Plots %%
 [min_xmse, min_indexx] = min([datas.xmse]);
 [min_amse, min_indexa] = min([datas.amse]);
 [min_bmse, min_indexb] = min([datas.bmse]);

@@ -3,7 +3,7 @@ clear;
 close all;
 
 disp('Mixed More Noise...');
-
+%% Making Directories %%
 mkdir(fullfile('figures','more-noise', 'suboptimal',  'xxhat', 'svg'));
 mkdir(fullfile('figures','more-noise', 'suboptimal',  'xxhat', 'eps'));
 mkdir(fullfile('figures','more-noise', 'suboptimal',  'ab', 'svg'));
@@ -39,7 +39,7 @@ theta_m = 4;
 
 
 ctr = 1;
-
+ %% Approximations and Plots %%
 for i = 1:length(foptions)
     for j = 1:length(n0options)
         fig1 = figure(i);
@@ -109,6 +109,7 @@ for i = 1:length(foptions)
         xlabel('$t$', 'interpreter', 'latex');
         
     end
+        %% Save Plots %%
     saveas(fig1, fullfile('figures',  'more-noise', 'suboptimal',  'xxhat', 'svg', sprintf('xxhat_f(%.1f).svg', foptions(i))));
     saveas(fig1, fullfile('figures',  'more-noise', 'suboptimal',  'xxhat', 'eps', sprintf('xxhat_f(%.1f).eps', foptions(i))));
     

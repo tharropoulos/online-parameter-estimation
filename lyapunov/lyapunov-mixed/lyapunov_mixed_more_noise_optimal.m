@@ -3,7 +3,7 @@ clear;
 close all;
 
 disp('Mixed More Noise Optimal Gammas/Theta...');
-
+%% Making Directories %%
 mkdir(fullfile('figures','more-noise', 'optimal', 'xxhat', 'svg'));
 mkdir(fullfile('figures','more-noise', 'optimal', 'xxhat', 'eps'));
 mkdir(fullfile('figures','more-noise', 'optimal', 'ab', 'svg'));
@@ -39,7 +39,7 @@ theta_m =24;
 
 
 ctr = 1;
-
+ %% Approximations and Plots %%
 for i = 1:length(foptions)
     for j = 1:length(n0options)
         fig1 = figure(i);
@@ -109,6 +109,7 @@ for i = 1:length(foptions)
         xlabel('$t$', 'interpreter', 'latex');
         
     end
+        %% Save Plots %%
     saveas(fig1, fullfile('figures',  'more-noise', 'optimal', 'xxhat', 'svg', sprintf('xxhat_f(%.1f).svg', foptions(i))));
     saveas(fig1, fullfile('figures',  'more-noise', 'optimal', 'xxhat', 'eps', sprintf('xxhat_f(%.1f).eps', foptions(i))));
     
@@ -119,6 +120,7 @@ for i = 1:length(foptions)
     saveas(fig3, fullfile('figures',  'more-noise', 'optimal', 'xdif', 'eps', sprintf('xdif_f(%.1f).eps', foptions(i))));
     
 end
+%% minimum and maximum mse%%
 [min_xmse, min_indexx] = min([datas.xmse]);
 [min_amse, min_indexa] = min([datas.amse]);
 [min_bmse, min_indexb] = min([datas.bmse]);
