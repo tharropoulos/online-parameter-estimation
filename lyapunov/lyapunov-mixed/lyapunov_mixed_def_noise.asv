@@ -12,9 +12,10 @@ mkdir(fullfile('figures','def-noise', 'xdif', 'eps'));
 
 tspan = 0:0.001:30;
 
-gamma2 = 24;
-gamma1_options = [10, 30];
+gamma1_options = [0.1, 0.3, 0.5, 1, 4, 5, 10, 30];
+gamma2_options = [0.1, 0.4, 0.7, 2, 5, 8, 24, 40];
 theta_m_options = [0.5, 1, 2, 4, 6, 12, 24, 48];
+
 
 initialconditions = zeros(1,4);
 
@@ -30,12 +31,14 @@ b = 2;
 
 ctr = 1;
 
-for i = 1:length(gamma1_options)
-    for j = 1:length(theta_m_options)
-          fig1 = figure(i);
-          fig1.WindowState = 'maximized';
+for k = 1:length(theta_m_options)
+    for i = 1:length(gamma1_options)
+        for j = 1:length(gamma2_options)
+            
+         fig1 = figure(i);
+         fig1.WindowState = 'maximized';
       
-        [data, odex] = lyapunov_mixed(tspan, initialconditions, a, b, gamma1_options(i), gamma2, theta_m_options(j), u, n);
+        [data, odex] = lyapunov_mixed(tspan, initialconditions, a, b, gamma1_options(i), gamma2_options(j), theta_m_options(k), u, n);
         
         
         datas(ctr).xmse = data.xmse;
@@ -43,7 +46,8 @@ for i = 1:length(gamma1_options)
         datas(ctr).bmse = data.bmse;
         datas(ctr).general_mse = data.general_mse;
         datas(ctr).gamma1 = gamma1_options(i);
-        datas(ctr).theta_m = theta_m_options(j);
+        datas(ctr).gamma2 = gamma2_options(j);
+        datas(ctr).theta_m = theta_m_options(k);
         datas(ctr).x = data.x;
         datas(ctr).x_hat = data.x_hat;
         datas(ctr).a_hat = data.a_hat;
@@ -57,7 +61,7 @@ for i = 1:length(gamma1_options)
         plot(tspan, data.x, '-b');
         hold on;
         plot(tspan, data.x_hat, '-.r');
-        title(sprintf('Approximated and actual output using the Lyapunov Series-Parallel  Method for parameters $\\gamma_1 = %.1f$ and $\\theta_m = %.1f$', gamma1_options(i), theta_m_options(j)), 'Interpreter', 'latex');
+        title(sprintf('Approximated and actual output using the Lyapunov Mixed  Method for parameters $\\gamma_1 = %.1f$,$\\gamma_2 = %.1f$ $\\theta_m = %.1f$', gamma1_options(i), gamma2_options(j), theta_m_options(k)), 'Interpreter', 'latex');
         ax = gca;
         ax.TitleFontSizeMultiplier = 0.95;
         ylabel('$x$, $\hat{x}$', 'interpreter', 'latex');
@@ -75,7 +79,7 @@ for i = 1:length(gamma1_options)
         aline = yline(a,'--', '$\alpha$', 'interpreter', 'latex');
         aline.LabelHorizontalAlignment = 'left';
        
-        title(sprintf('Approximated and actual parameters using the Lyapunov Series-Parallel Method for parameters $\\gamma_1 = %.1f$ and $\\theta_m = %.1f$', gamma1_options(i), theta_m_options(j)), 'Interpreter', 'latex');
+        title(sprintf('Approximated and actual parameters using the Lyapunov Mixed Method for parameters $\\gamma_1 = %.1f$,$\\gamma_2 = %.1f$ $\\theta_m = %.1f$', gamma1_options(i), gamma2_options(j), theta_m_options(k)), 'Interpreter', 'latex');
         ax = gca;
         ax.TitleFontSizeMultiplier = 0.95;
         ylabel('$a$, $b$', 'interpreter', 'latex');
@@ -92,12 +96,12 @@ for i = 1:length(gamma1_options)
         hold on;
         yline(0, '--');
 %         ylim([-0.5, 4]);
-        title(sprintf('Difference between actual and approximated output using the Lyapunov Series-Parallel Method for parameters $\\gamma_1 = %.1f$ and $\\theta_m = %.1f$', gamma1_options(i), theta_m_options(j)), 'Interpreter', 'latex');
+        title(sprintf('Difference between actual and approximated output using the Lyapunov Mixed Method for parameters $\\gamma_1 = %.1f$,$\\gamma_2 = %.1f$ $\\theta_m = %.1f$', gamma1_options(i), gamma2_options(j), theta_m_options(k)), 'Interpreter', 'latex');
         ax = gca;
         ax.TitleFontSizeMultiplier = 0.89;
         ylabel('$x - \hat{x}$', 'interpreter', 'latex');
         xlabel('$t$', 'interpreter', 'latex');
-        
+        end
     end
     saveas(fig1, fullfile('figures',  'def-noise', 'xxhat', 'svg', sprintf('xxhat_g1(%.1f).svg', gamma1_options(i))));
     saveas(fig1, fullfile('figures',  'def-noise', 'xxhat', 'eps', sprintf('xxhat_g1(%.1f).eps', gamma1_options(i))));

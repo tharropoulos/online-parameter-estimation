@@ -4,12 +4,12 @@ close all;
 
 disp('Mixed More Noise...');
 
-mkdir(fullfile('figures','more-noise', 'xxhat', 'svg'));
-mkdir(fullfile('figures','more-noise', 'xxhat', 'eps'));
-mkdir(fullfile('figures','more-noise', 'ab', 'svg'));
-mkdir(fullfile('figures','more-noise', 'ab', 'eps'));
-mkdir(fullfile('figures','more-noise', 'xdif', 'svg'));
-mkdir(fullfile('figures','more-noise', 'xdif', 'eps'));
+mkdir(fullfile('figures','more-noise', 'suboptimal',  'xxhat', 'svg'));
+mkdir(fullfile('figures','more-noise', 'suboptimal',  'xxhat', 'eps'));
+mkdir(fullfile('figures','more-noise', 'suboptimal',  'ab', 'svg'));
+mkdir(fullfile('figures','more-noise', 'suboptimal',  'ab', 'eps'));
+mkdir(fullfile('figures','more-noise', 'suboptimal',  'xdif', 'svg'));
+mkdir(fullfile('figures','more-noise', 'suboptimal',  'xdif', 'eps'));
 
 tspan = 0:0.001:30;
 
@@ -109,14 +109,14 @@ for i = 1:length(foptions)
         xlabel('$t$', 'interpreter', 'latex');
         
     end
-    saveas(fig1, fullfile('figures',  'more-noise', 'xxhat', 'svg', sprintf('xxhat_f(%.1f).svg', foptions(i))));
-    saveas(fig1, fullfile('figures',  'more-noise', 'xxhat', 'eps', sprintf('xxhat_f(%.1f).eps', foptions(i))));
+    saveas(fig1, fullfile('figures',  'more-noise', 'suboptimal',  'xxhat', 'svg', sprintf('xxhat_f(%.1f).svg', foptions(i))));
+    saveas(fig1, fullfile('figures',  'more-noise', 'suboptimal',  'xxhat', 'eps', sprintf('xxhat_f(%.1f).eps', foptions(i))));
     
-    saveas(fig2, fullfile('figures',  'more-noise', 'ab', 'svg', sprintf('ab_f(%.1f).svg', foptions(i))));
-    saveas(fig2, fullfile('figures',  'more-noise', 'ab', 'eps', sprintf('ab_f(%.1f).eps', foptions(i))));
+    saveas(fig2, fullfile('figures',  'more-noise', 'suboptimal',  'ab', 'svg', sprintf('ab_f(%.1f).svg', foptions(i))));
+    saveas(fig2, fullfile('figures',  'more-noise', 'suboptimal',  'ab', 'eps', sprintf('ab_f(%.1f).eps', foptions(i))));
     
-    saveas(fig3, fullfile('figures',  'more-noise', 'xdif', 'svg', sprintf('xdif_f(%.1f).svg', foptions(i))));
-    saveas(fig3, fullfile('figures',  'more-noise', 'xdif', 'eps', sprintf('xdif_f(%.1f).eps', foptions(i))));
+    saveas(fig3, fullfile('figures',  'more-noise', 'suboptimal',  'xdif', 'svg', sprintf('xdif_f(%.1f).svg', foptions(i))));
+    saveas(fig3, fullfile('figures',  'more-noise', 'suboptimal',  'xdif', 'eps', sprintf('xdif_f(%.1f).eps', foptions(i))));
     
 end
 [min_xmse, min_indexx] = min([datas.xmse]);

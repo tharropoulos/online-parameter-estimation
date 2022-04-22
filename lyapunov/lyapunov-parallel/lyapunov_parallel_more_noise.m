@@ -13,7 +13,7 @@ mkdir(fullfile('figures','more-noise', 'xdif', 'eps'));
 
 tspan = 0:0.001:30;
 
-gamma1 = 10;
+gamma1 = 30;
 gamma2 = 24;
 
 foptions = [20 40 80 160 240];
